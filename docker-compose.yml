@@ -1,0 +1,7 @@
+services:
+    ticker:
+        build: .
+        env:
+          - DISCORD_TOKEN=your_token
+          - FROM_CURRENCY=ILS
+          - TO_CURRENCY=USD
