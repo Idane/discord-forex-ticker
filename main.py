@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import os
 import time
@@ -35,7 +36,7 @@ async def poll_data():
                 to_amount = numbers.format_currency(1.000, TO_CURRENCY, locale='en_US')
                 logging.info(f'Retrieved {from_amount} = {to_amount}')
                 await client.change_presence(activity=discord.Streaming(name=f'{to_amount} = {from_amount}', url=f'https://www.google.com/finance/quote/{TO_CURRENCY}-{FROM_CURRENCY}'))
-        time.sleep(3600)
+        await asyncio.sleep(3600)
 
 
 def get_data():
