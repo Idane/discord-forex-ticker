@@ -1,7 +1,10 @@
 import asyncio
+import functools
 import logging
 import os
 import time
+import typing
+from threading import Thread
 from types import SimpleNamespace
 
 import discord
@@ -18,11 +21,10 @@ TO_CURRENCY = os.getenv('TO_CURRENCY')
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
 
-
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
-    await poll_data()
+    Thread(target=functools.partial(asyncio.run, poll_data())).start()
 
 
 async def poll_data():
@@ -51,6 +53,5 @@ def get_data():
         return None
     else:
         return parsed
-
 
 client.run(TOKEN)
